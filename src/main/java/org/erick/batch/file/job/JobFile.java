@@ -1,4 +1,4 @@
-package org.erick.batch.oddeven.job;
+package org.erick.batch.file.job;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -10,16 +10,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class JobOddEven {
+public class JobFile {
 	
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
 	
 	@Bean
-	public Job jobEvenOdd(JobRepository jobRepository, @Qualifier("oddEvenStep") Step step) {
-		return jobBuilderFactory.get("jobEvenOdd")
+	public Job jobFlatFile(JobRepository jobRepository, @Qualifier("fileStep") Step step) {
+		return jobBuilderFactory
+				.get("jobFile")
 				.repository(jobRepository)
 				.start(step)
 				.build();
 	}
+
 }

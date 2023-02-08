@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProcessorOddEven {
 	
-	@Bean
-	public FunctionItemProcessor<Integer, String> oddEvenProcessor() {
+	@Bean("processorEvenOdd")
+	public FunctionItemProcessor<Integer, String> EvenOddProcessor() {
 		return new FunctionItemProcessor<Integer, String> (item -> 
 			item % 2 == 0 ? String.format("O item %s é Par", item) : String.format("O item %s é Impar", item)
 		); 

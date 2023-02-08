@@ -1,14 +1,15 @@
-package org.erick.batch.oddeven.writer;
+package org.erick.batch.file.writer;
+
 
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class WriterOddEven {
+public class FileWriter {
 
-	@Bean("oddEvenWriter")
-	public ItemWriter<String> oddEvenWriter() {
+	@Bean("writerFile")
+	public ItemWriter<String> writeFile() {
 		return itens -> itens.forEach(item -> System.out.println(item));
 	}
 }
