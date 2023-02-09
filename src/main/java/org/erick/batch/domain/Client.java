@@ -9,9 +9,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class Client {
 	private Long id;
-	private String paymentMethod;
-	private String value;
-	private String datetime;
+	private String name;
+	private String surname;
+	private String cpf;
+	private String address;
+	private String phoneNumber; 
 }

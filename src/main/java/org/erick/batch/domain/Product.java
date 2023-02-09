@@ -5,13 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+@NoArgsConstructor
+@Data
+public abstract class Product {
 	private Long id;
-	private String paymentMethod;
-	private String value;
-	private String datetime;
+	private String name;
 }

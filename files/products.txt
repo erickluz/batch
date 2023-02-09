@@ -1,0 +1,6 @@
+1, 1, Soda Pop,8,2
+1, 2, Beer,7,3
+0, 3, Cleaning Product, 4
+0, 4, Car, 23000
+1, 5, Tennis, 180, 50
+1, 6, Tire, 200, 120

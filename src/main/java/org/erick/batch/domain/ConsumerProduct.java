@@ -5,13 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
-@ToString
-@NoArgsConstructor
+@ToString(callSuper = true)
 @AllArgsConstructor
-public class Transaction {
-	private Long id;
-	private String paymentMethod;
-	private String value;
-	private String datetime;
+@NoArgsConstructor
+@Data
+public class ConsumerProduct extends Product {
+	private Double costValue;
 }

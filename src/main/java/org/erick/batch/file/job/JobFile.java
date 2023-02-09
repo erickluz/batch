@@ -16,12 +16,31 @@ public class JobFile {
 	private JobBuilderFactory jobBuilderFactory;
 	
 	@Bean
-	public Job jobFlatFile(JobRepository jobRepository, @Qualifier("fileStep") Step step) {
+	public Job jobFlatFileTransaction(JobRepository jobRepository, @Qualifier("fileStepTransaction") Step step) {
 		return jobBuilderFactory
-				.get("jobFile")
+				.get("jobFileTransaction")
 				.repository(jobRepository)
 				.start(step)
 				.build();
 	}
+	
+	@Bean
+	public Job jobFileClients(JobRepository jobRepository, @Qualifier("fileStepClient") Step step) {
+		return jobBuilderFactory
+				.get("jobFileClient")
+				.repository(jobRepository)
+				.start(step)
+				.build();
+	}
+	
+	@Bean
+	public Job jobFileProducts(JobRepository jobRepository, @Qualifier("fileStepProducts") Step step) {
+		return jobBuilderFactory
+				.get("jobFileProduct")
+				.repository(jobRepository)
+				.start(step)
+				.build();
+	}
+
 
 }

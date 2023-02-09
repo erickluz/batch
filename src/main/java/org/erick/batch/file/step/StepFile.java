@@ -1,6 +1,8 @@
 package org.erick.batch.file.step;
 
 
+import org.erick.batch.domain.Client;
+import org.erick.batch.domain.Product;
 import org.erick.batch.domain.Transaction;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -18,13 +20,39 @@ public class StepFile {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 	
-	@Bean("fileStep")
-	public Step stepFileFlat(@Qualifier("readFile") FlatFileItemReader<Transaction> reader,
-							 @Qualifier("processorFile") FunctionItemProcessor<Transaction, String> processor,
-							 @Qualifier("writerFile") ItemWriter<String> writer) {
+	@Bean("fileStepTransaction")
+	public Step stepFileTransaction(@Qualifier("readFileTransaction") FlatFileItemReader<Transaction> reader,
+								    @Qualifier("processorFileTransaction") FunctionItemProcessor<Transaction, String> processor,
+								    @Qualifier("writerFileTransaction") ItemWriter<String> writer) {
 		return stepBuilderFactory
-				.get("stepFileFlat")
+				.get("stepFileTransaction")
 				.<Transaction , String> chunk(1)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
+	}
+	
+	@Bean("fileStepClient")
+	public Step stepFileClient(@Qualifier("readFileClient") FlatFileItemReader<Client> reader,
+						       @Qualifier("processorFileClient") FunctionItemProcessor<Client, String> processor,
+						       @Qualifier("writerFileClient") ItemWriter<String> writer) {
+		return stepBuilderFactory
+				.get("stepFileClient")
+				.<Client , String> chunk(1)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
+	}
+	
+	@Bean("fileStepProducts")
+	public Step stepFileProduct(@Qualifier("readFileProduct") FlatFileItemReader<Product> reader,
+						        @Qualifier("processorFileProduct") FunctionItemProcessor<Product, String> processor,
+						        @Qualifier("writerFileProduct") ItemWriter<String> writer) {
+		return stepBuilderFactory
+				.get("stepFileProduct")
+				.<Product , String> chunk(1)
 				.reader(reader)
 				.processor(processor)
 				.writer(writer)

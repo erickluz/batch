@@ -8,8 +8,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FileWriter {
 
-	@Bean("writerFile")
-	public ItemWriter<String> writeFile() {
+	@Bean("writerFileTransaction")
+	public ItemWriter<String> writeFileTransaction() {
+		return itens -> itens.forEach(item -> System.out.println(item));
+	}
+	
+	@Bean("writerFileClient")
+	public ItemWriter<String> writeFileClient() {
+		return itens -> itens.forEach(item -> System.out.println(item));
+	}
+	
+	@Bean("writerFileProduct")
+	public ItemWriter<String> writeFileProduct() {
 		return itens -> itens.forEach(item -> System.out.println(item));
 	}
 }
