@@ -22,4 +22,9 @@ public class FileWriter {
 	public ItemWriter<String> writeFileProduct() {
 		return itens -> itens.forEach(item -> System.out.println(item));
 	}
+	
+	@Bean("writerFileCashier")
+	public ItemWriter<String> writeFileCashier() {
+		return itens -> itens.forEach(item -> System.out.println(item));
+	}
 }

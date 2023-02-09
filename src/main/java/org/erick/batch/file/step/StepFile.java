@@ -4,6 +4,7 @@ package org.erick.batch.file.step;
 import org.erick.batch.domain.Client;
 import org.erick.batch.domain.Product;
 import org.erick.batch.domain.Transaction;
+import org.erick.batch.file.reader.FileCashierReader;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemWriter;
@@ -54,6 +55,20 @@ public class StepFile {
 				.get("stepFileProduct")
 				.<Product , String> chunk(1)
 				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Bean("fileStepCashier")
+	public Step stepFileCashier(@Qualifier("readFileCashier") FlatFileItemReader reader,
+								@Qualifier("processorFileCashier") FunctionItemProcessor<Object, String> processor,
+						        @Qualifier("writerFileCashier") ItemWriter writer) {
+		return stepBuilderFactory
+				.get("stepFileChashier")
+				.chunk(1)
+				.reader(new FileCashierReader(reader))
 				.processor(processor)
 				.writer(writer)
 				.build();

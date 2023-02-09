@@ -3,8 +3,8 @@ package org.erick.batch.file.reader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.erick.batch.domain.ConsumerProduct;
-import org.erick.batch.domain.SaleProduct;
+import org.erick.batch.domain.CashierOperator;
+import org.erick.batch.domain.OperationsCashier;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.mapping.PatternMatchingCompositeLineMapper;
@@ -14,11 +14,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class LineMapperProducts {
+public class LineMapperCashier {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Bean(name = "productsLineMapper")
-	public PatternMatchingCompositeLineMapper productsLineMapper() {
+	@Bean(name = "cashierLineMapper")
+	public PatternMatchingCompositeLineMapper lineMapperCashier() {
 		PatternMatchingCompositeLineMapper lineMapper = new PatternMatchingCompositeLineMapper<>();
 		lineMapper.setTokenizers(tokenizers());
 		lineMapper.setFieldSetMappers(fieldMappers());
@@ -28,8 +28,8 @@ public class LineMapperProducts {
 	@SuppressWarnings("rawtypes")
 	private Map<String, FieldSetMapper> fieldMappers() {
 		Map<String, FieldSetMapper> fieldMappers = new HashMap<>();
-		fieldMappers.put("1*", fieldSetMapper(SaleProduct.class));
-		fieldMappers.put("0*", fieldSetMapper(ConsumerProduct.class));
+		fieldMappers.put("0*", fieldSetMapper(CashierOperator.class));
+		fieldMappers.put("1*", fieldSetMapper(OperationsCashier.class));
 		return fieldMappers;
 	}
 
@@ -43,23 +43,24 @@ public class LineMapperProducts {
 
 	private Map<String, LineTokenizer> tokenizers() {
 		Map<String, LineTokenizer> tokenizers = new HashMap<>();
-		tokenizers.put("1*", saleProductTokenizer());
-		tokenizers.put("0*", consumerProductTokenizer());
+		tokenizers.put("0*", cashierTokenizer());
+		tokenizers.put("1*", OperationsTokenizer());
 		return tokenizers;
 	}
 
-	private LineTokenizer consumerProductTokenizer() {
+	private LineTokenizer OperationsTokenizer() {
 		DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-		lineTokenizer.setNames("id", "name", "costValue");
-		lineTokenizer.setDelimiter(",");
+		lineTokenizer.setNames("id", "operation", "value");
+		lineTokenizer.setDelimiter(";");
 		lineTokenizer.setIncludedFields(1, 2, 3);
 		return lineTokenizer;
 	}
 
-	private LineTokenizer saleProductTokenizer() {
+	private LineTokenizer cashierTokenizer() {
 		DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-		lineTokenizer.setNames("id", "name", "saleValue", "purchasePrice");
-		lineTokenizer.setIncludedFields(1, 2, 3, 4);
+		lineTokenizer.setNames("id", "name", "surname", "nsu", "age", "email");
+		lineTokenizer.setDelimiter(";");
+		lineTokenizer.setIncludedFields(1, 2, 3, 4, 5, 6);
 		return lineTokenizer;
 	}
 }

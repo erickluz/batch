@@ -41,6 +41,14 @@ public class JobFile {
 				.start(step)
 				.build();
 	}
-
+	
+	@Bean
+	public Job jobFileCashier(JobRepository jobRepository, @Qualifier("fileStepCashier") Step step) {
+		return jobBuilderFactory
+				.get("jobFileCashier")
+				.repository(jobRepository)
+				.start(step)
+				.build();
+	}
 
 }

@@ -1,6 +1,7 @@
 package org.erick.batch.file.reader;
 
 
+import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
 import org.erick.batch.domain.Product;
 import org.erick.batch.domain.Transaction;
@@ -9,6 +10,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.transform.Range;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,9 +50,21 @@ public class FileReader {
 	@StepScope
 	@Bean("readFileProduct")
 	public FlatFileItemReader<Product> readProductsFile(@Value("#{jobParameters['productsFile']}") Resource resource,
-			LineMapper lineMapper) {
+			@Qualifier("productsLineMapper") LineMapper lineMapper) {
 		return new FlatFileItemReaderBuilder<Product>()
 				.name("readFileProduct")
+				.resource(resource)
+				.lineMapper(lineMapper)
+				.build();
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" }) 
+	@StepScope
+	@Bean("readFileCashier")
+	public FlatFileItemReader<CashierOperator> readCashierFile(@Value("#{jobParameters['cashierFile']}") Resource resource,
+			@Qualifier("cashierLineMapper") LineMapper lineMapper) {
+		return new FlatFileItemReaderBuilder<CashierOperator>()
+				.name("readFileCashier")
 				.resource(resource)
 				.lineMapper(lineMapper)
 				.build();

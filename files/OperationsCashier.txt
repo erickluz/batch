@@ -1,0 +1,14 @@
+0;1; Maria; Luz; 44313; 61; maria@gmail.com
+1;1; deposit; 250
+1;2; deposit; 250
+1;3; deposit; 1000
+1;4; withdraw; 250
+0;2; Erick; Luz; 1112836; 27; erick@gmail.com
+1;5; deposit; 1250
+1;6; deposit; 2
+1;7; withdraw; 1000
+0;3; Eduardo; Luz; 232134; 59; eduardo@gmail.com
+1;8; deposit; 9920
+1;9; deposit; 100
+0;4; Bud; Luz; 223341; 1; bud@gmail.com
+1;10; deposit; 100

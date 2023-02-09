@@ -24,4 +24,9 @@ public class FileProcessor {
 	public FunctionItemProcessor<Product, String> processorFileProduct() {
 		return new FunctionItemProcessor<>(item -> item.toString());
 	}
+	
+	@Bean("processorFileCashier")
+	public FunctionItemProcessor<Object, String> processorFileCashier() {
+		return new FunctionItemProcessor<>(item -> item.toString());
+	}
 }
