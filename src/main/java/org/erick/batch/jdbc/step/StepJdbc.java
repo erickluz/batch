@@ -6,6 +6,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
+import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,11 +20,24 @@ public class StepJdbc {
 	private StepBuilderFactory stepBuilderFactory;
 	
 	@Bean
-	public Step clientJdbcStep(@Qualifier("clientJdbcReader") JdbcCursorItemReader<Client> reader,
-							   @Qualifier("clientJdbcProcessor") FunctionItemProcessor<Client, String> processor,
-							   @Qualifier("clientJdbcWriter") ItemWriter<String> writer) {
+	public Step clientCursorJdbcStep(@Qualifier("clientJdbcCursorReader") JdbcCursorItemReader<Client> reader,
+									 @Qualifier("clientJdbcProcessor") FunctionItemProcessor<Client, String> processor,
+									 @Qualifier("clientJdbcWriter") ItemWriter<String> writer) {
 		return stepBuilderFactory
-				.get("clientJdbcStep")
+				.get("clientCursorJdbcStep")
+				.<Client, String> chunk(1)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
+	}
+	
+	@Bean
+	public Step clientPagingJdbcStep(@Qualifier("clientJdbcPagingReader") JdbcPagingItemReader<Client> reader,
+									 @Qualifier("clientJdbcProcessor") FunctionItemProcessor<Client, String> processor,
+									 @Qualifier("clientJdbcWriter") ItemWriter<String> writer) {
+		return stepBuilderFactory
+				.get("clientPagingJdbcStep")
 				.<Client, String> chunk(1)
 				.reader(reader)
 				.processor(processor)

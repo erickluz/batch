@@ -17,9 +17,19 @@ public class JobJdbc {
 	private JobBuilderFactory jobBuilderFactory;
 	
 	@Bean
-	public Job jobJDBCClients(JobRepository jobRepository, @Qualifier("clientJdbcStep") Step step) {
+	public Job jobJDBCClients(JobRepository jobRepository, @Qualifier("clientCursorJdbcStep") Step step) {
 		return jobBuilderFactory
-				.get("jobJDBCClients")
+				.get("jobCursorJDBCClients")
+				.repository(jobRepository)
+				.start(step)
+				.incrementer(new RunIdIncrementer())
+				.build();
+	}
+	
+	@Bean
+	public Job jobPagingJDBCClients(JobRepository jobRepository, @Qualifier("clientPagingJdbcStep") Step step) {
+		return jobBuilderFactory
+				.get("jobPagingJDBCClients")
 				.repository(jobRepository)
 				.start(step)
 				.incrementer(new RunIdIncrementer())
