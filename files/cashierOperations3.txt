@@ -1,0 +1,7 @@
+0;3; Eduardo; Luz; 232134; 59; eduardo@gmail.com
+1;8; deposit; 9920
+1;9; deposit; 100
+0;4; Bud; Luz; 223341; 1; bud@gmail.com
+1;10; deposit; 100
+0;3; Edna; Luz; 4554231; 1; edna@gmail.com
+1;8; deposit; 1111

@@ -1,5 +1,6 @@
 package org.erick.batch.file.processor;
 
+import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
 import org.erick.batch.domain.Product;
 import org.erick.batch.domain.Transaction;
@@ -27,6 +28,11 @@ public class FileProcessor {
 	
 	@Bean("processorFileCashier")
 	public FunctionItemProcessor<Object, String> processorFileCashier() {
+		return new FunctionItemProcessor<>(item -> item.toString());
+	}
+	
+	@Bean("multiFileCashierProcessor")
+	public FunctionItemProcessor<CashierOperator, String> processorMultiFileCashier() {
 		return new FunctionItemProcessor<>(item -> item.toString());
 	}
 }

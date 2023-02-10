@@ -1,7 +1,9 @@
 package org.erick.batch.file.step;
 
 
+import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
+import org.erick.batch.domain.OperationsCashier;
 import org.erick.batch.domain.Product;
 import org.erick.batch.domain.Transaction;
 import org.erick.batch.file.reader.FileCashierReader;
@@ -9,6 +11,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -74,4 +77,17 @@ public class StepFile {
 				.build();
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Bean("fileStepMultiFile")
+	public Step stepFileMultiFiles(@Qualifier("multiFileCashierReader") MultiResourceItemReader reader,
+							       @Qualifier("multiFileCashierProcessor") FunctionItemProcessor<CashierOperator, String> processor,
+						           @Qualifier("multiFileCashierWriter") ItemWriter writer) {
+		return stepBuilderFactory
+				.get("stepFileMultiFile")
+				.<OperationsCashier, String> chunk(1)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
+	}
 }

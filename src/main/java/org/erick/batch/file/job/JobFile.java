@@ -50,5 +50,13 @@ public class JobFile {
 				.start(step)
 				.build();
 	}
-
+	
+	@Bean
+	public Job jobFileMultiFile(JobRepository jobRepository, @Qualifier("fileStepMultiFile") Step step) {
+		return jobBuilderFactory
+				.get("jobFileMultiFile")
+				.repository(jobRepository)
+				.start(step)
+				.build();
+	}
 }

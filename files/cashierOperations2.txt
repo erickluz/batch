@@ -1,0 +1,4 @@
+0;2; Erick; Luz; 1112836; 27; erick@gmail.com
+1;5; deposit; 1250
+1;6; deposit; 2
+1;7; withdraw; 1000

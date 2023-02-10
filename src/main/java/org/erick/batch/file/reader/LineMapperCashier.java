@@ -40,7 +40,6 @@ public class LineMapperCashier {
 		return fieldSetMapper;
 	}
 
-
 	private Map<String, LineTokenizer> tokenizers() {
 		Map<String, LineTokenizer> tokenizers = new HashMap<>();
 		tokenizers.put("0*", cashierTokenizer());

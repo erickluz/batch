@@ -27,4 +27,9 @@ public class FileWriter {
 	public ItemWriter<String> writeFileCashier() {
 		return itens -> itens.forEach(item -> System.out.println(item));
 	}
+	
+	@Bean("multiFileCashierWriter")
+	public ItemWriter<String> writeMultiFileCashier() {
+		return itens -> itens.forEach(item -> System.out.println(item));
+	}
 }
