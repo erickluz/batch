@@ -84,7 +84,7 @@ public class StepFile {
 						           @Qualifier("multiFileCashierWriter") ItemWriter writer) {
 		return stepBuilderFactory
 				.get("stepFileMultiFile")
-				.<OperationsCashier, String> chunk(1)
+				.<CashierOperator, String> chunk(1)
 				.reader(reader)
 				.processor(processor)
 				.writer(writer)
