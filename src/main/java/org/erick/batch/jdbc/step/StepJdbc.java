@@ -29,6 +29,9 @@ public class StepJdbc {
 				.reader(reader)
 				.processor(processor)
 				.writer(writer)
+				.faultTolerant()
+				.skip(Exception.class)
+				.skipLimit(2)
 				.build();
 	}
 	
