@@ -1,12 +1,11 @@
-package org.erick.batch.file.step;
+package org.erick.batch.readers.file.step;
 
 
 import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
-import org.erick.batch.domain.OperationsCashier;
 import org.erick.batch.domain.Product;
 import org.erick.batch.domain.Transaction;
-import org.erick.batch.file.reader.FileCashierReader;
+import org.erick.batch.readers.file.reader.FileCashierReader;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemWriter;

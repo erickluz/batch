@@ -1,4 +1,4 @@
-package org.erick.batch.jdbc.processor;
+package org.erick.batch.readers.jdbc.processor;
 
 import org.erick.batch.domain.Client;
 import org.springframework.batch.item.function.FunctionItemProcessor;

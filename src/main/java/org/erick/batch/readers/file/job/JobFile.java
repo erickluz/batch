@@ -1,4 +1,4 @@
-package org.erick.batch.file.job;
+package org.erick.batch.readers.file.job;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

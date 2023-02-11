@@ -1,4 +1,4 @@
-package org.erick.batch.file.reader;
+package org.erick.batch.readers.file.reader;
 
 import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.OperationsCashier;
@@ -8,12 +8,15 @@ import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.ResourceAwareItemReaderItemStream;
+import org.springframework.core.io.Resource;
 
-public class FileCashierReader implements ItemStreamReader<CashierOperator> {
+public class FileMultiCashierReader implements ItemStreamReader<CashierOperator>, ResourceAwareItemReaderItemStream<CashierOperator> {
 	private Object actualObject;
-	private ItemStreamReader<Object> delegate;
+	private FlatFileItemReader<Object> delegate;
 	
-	public FileCashierReader(ItemStreamReader<Object> delegate) {
+	public FileMultiCashierReader(FlatFileItemReader<Object> delegate) {
 		this.delegate = delegate;
 	}
 
@@ -53,5 +56,11 @@ public class FileCashierReader implements ItemStreamReader<CashierOperator> {
 		actualObject = delegate.read();
 		return actualObject;
 	}
+
+	@Override
+	public void setResource(Resource resource) {
+		delegate.setResource(resource);
+	}
+
 
 }

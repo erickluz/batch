@@ -1,4 +1,4 @@
-package org.erick.batch.jdbc.config;
+package org.erick.batch.readers.jdbc.config;
 
 import javax.sql.DataSource;
 

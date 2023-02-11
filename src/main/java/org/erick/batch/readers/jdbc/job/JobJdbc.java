@@ -1,4 +1,4 @@
-package org.erick.batch.jdbc.job;
+package org.erick.batch.readers.jdbc.job;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

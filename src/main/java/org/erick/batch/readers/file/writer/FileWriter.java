@@ -1,4 +1,4 @@
-package org.erick.batch.file.writer;
+package org.erick.batch.readers.file.writer;
 
 
 import org.springframework.batch.item.ItemWriter;

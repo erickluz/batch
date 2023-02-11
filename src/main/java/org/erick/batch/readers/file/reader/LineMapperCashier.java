@@ -1,4 +1,4 @@
-package org.erick.batch.file.reader;
+package org.erick.batch.readers.file.reader;
 
 import java.util.HashMap;
 import java.util.Map;

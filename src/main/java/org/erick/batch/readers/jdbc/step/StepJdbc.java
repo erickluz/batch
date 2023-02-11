@@ -1,4 +1,4 @@
-package org.erick.batch.jdbc.step;
+package org.erick.batch.readers.jdbc.step;
 
 
 import org.erick.batch.domain.Client;

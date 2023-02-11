@@ -1,4 +1,4 @@
-package org.erick.batch.jdbc.reader;
+package org.erick.batch.readers.jdbc.reader;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +38,7 @@ public class JdbcReader {
 			@Override
 			public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
 				if(rs.getString("name").equals("Erick")){
+					System.out.println("Client with name not allowed. Client = " + rs.getString("id"));
 					throw new SQLException("name not allowed");
 				} else {
 					return clientRowMapper(rs);

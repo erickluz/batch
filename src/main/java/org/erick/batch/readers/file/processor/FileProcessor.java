@@ -1,4 +1,4 @@
-package org.erick.batch.file.processor;
+package org.erick.batch.readers.file.processor;
 
 import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
