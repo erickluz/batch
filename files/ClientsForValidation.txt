@@ -1,5 +1,6 @@
 1, Erick valid, Luz, 27, 21312312, Rua 1, 11341234123, erick@gmail.com
 2, Fabio Invalid, Cruz, 22, 3213123213, Av false, 23123123, fabiogmail.com
-3, Lucia Invalid, Ferraz, a, 344321344, Rua Amem, 31314123123, lucia@gmail.com
+3, Lucia valid, Ferraz, a, 344321344, Rua Amem, 31314123123, lucia@gmail.com
 4, Bud valid, ave, 1, 3442321'4, Rua Morini, 12332312312, bud@gmail.com
 5, Eduardo valid, Luz, 59, 12333124, Rua Hudson, 33321123, eduardo@gmail.com
+6, Rubens invalid, Cunha, 101, 23213123, Rua acacia, 3221312312321, rubens@gmail.com
