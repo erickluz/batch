@@ -25,4 +25,13 @@ public class JobProcessors {
 				.incrementer(new RunIdIncrementer())
 				.build();
 	}
+	
+	@Bean
+	public Job jobProcessorClassifier(JobRepository jobRepository, @Qualifier("stepProcessorClassifier") Step step) {
+		return jobBuilderFactory
+				.get("jobProcessorClassifier")
+				.start(step)
+				.incrementer(new RunIdIncrementer())
+				.build();
+	}
 }

@@ -2,6 +2,7 @@ package org.erick.batch.processors.step;
 
 
 import org.erick.batch.domain.Client;
+import org.erick.batch.domain.Product;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -20,21 +21,35 @@ public class StepProcessors {
 	
 	@Bean
 	public Step stepProcessorValidator(@Qualifier("readerClientsProcessors") FlatFileItemReader<Client> reader,
-									   @Qualifier("processorValidadorBean") ItemProcessor<Client, Client> processor1,
-									   @Qualifier("processorValidadorValidating") ItemProcessor<Client, Client> processor2,
+									   @Qualifier("compositeItemProcessor") ItemProcessor<Client, Client> processor,
 									   @Qualifier("writerForProcessors") ItemWriter<Client> writer) {
 		return stepBuilderFactory
 				.get("stepProcessorValidator")
 				.<Client, Client> chunk(1)
 				.reader(reader)
-				.processor(processor1)
-				.processor(processor2)
+				.processor(processor)
 				.writer(writer)
 				.faultTolerant()
 				.skip(Exception.class)
-				.skipLimit(2)
+				.skipLimit(3)
 				.build();
-		
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Bean
+	public Step stepProcessorClassifier(@Qualifier("readFileProduct") FlatFileItemReader<Product> reader,
+								        @Qualifier("processorClassifier") ItemProcessor processor,
+								 	    @Qualifier("writerForProductProcessors") ItemWriter<Product> writer) {
+		return stepBuilderFactory
+				.get("stepProcessorClassifier")
+				.<Product, Product> chunk(1)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.faultTolerant()
+				.skip(Exception.class)
+				.skipLimit(3)
+				.build();
 	}
 
 }
