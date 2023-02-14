@@ -15,5 +15,6 @@ public class CashierOperator {
 	private String nsu;
 	private Integer age;
 	private String email;
+	private Double totalTransaction;
 	private List<OperationsCashier> operations = new ArrayList<>();
 }
