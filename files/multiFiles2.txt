@@ -3,34 +3,14 @@
 	DATE FILE: 14/02/2023
 ---------------------------------------
 
-ID: 1 NAME Maria
-TRANSACTIONS
-	- ID: 1 VALUE: 250.0
-	- ID: 2 VALUE: 250.0
-	- ID: 3 VALUE: 1000.0
-	- ID: 4 VALUE: 250.0
-
 ID: 2 NAME Erick
 TRANSACTIONS
 	- ID: 5 VALUE: 1250.0
 	- ID: 6 VALUE: 2.0
 	- ID: 7 VALUE: 1000.0
 
-ID: 3 NAME Eduardo
-TRANSACTIONS
-	- ID: 8 VALUE: 9920.0
-	- ID: 9 VALUE: 100.0
-
-ID: 4 NAME Bud
-TRANSACTIONS
-	- ID: 10 VALUE: 100.0
-
-ID: 3 NAME Edna
-TRANSACTIONS
-	- ID: 8 VALUE: 1111.0
-
 ---------------------------------------
-	 TOTAL: 0.0
+	 TOTAL: 2252.0
 ---------------------------------------
 	 FILE AUTHENTICATION: sfsaeqodisafj12dslkf1
 ---------------------------------------

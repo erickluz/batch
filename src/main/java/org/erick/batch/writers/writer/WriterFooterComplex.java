@@ -5,7 +5,9 @@ import java.io.Writer;
 import java.util.List;
 
 import org.erick.batch.domain.CashierOperator;
+import org.springframework.batch.core.annotation.AfterChunk;
 import org.springframework.batch.core.annotation.BeforeWrite;
+import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.item.file.FlatFileFooterCallback;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,11 @@ public class WriterFooterComplex implements FlatFileFooterCallback {
 		for (CashierOperator operator : operators) {
 			total += operator.getTotalTransaction();
 		}
+	}
+	
+	@AfterChunk
+	public void afterChunk(ChunkContext context) {
+		total = 0.0;
 	}
 
 }

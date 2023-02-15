@@ -47,4 +47,14 @@ public class JobWriters {
 				.build();
 	}
 	
+	@Bean
+	public Job jobWriterMultiFilesComplex(JobRepository jobRepository, @Qualifier("stepWriteMultiFilesComplex") Step step) {
+		return jobBuilderFactory
+				.get("jobWriterMultiFilesComplex")
+				.repository(jobRepository)
+				.start(step)
+				.incrementer(new RunIdIncrementer())
+				.build();
+	}
+	
 }

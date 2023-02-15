@@ -8,6 +8,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.MultiResourceItemReader;
+import org.springframework.batch.item.file.MultiResourceItemWriter;
 import org.springframework.batch.item.function.FunctionItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -53,6 +54,22 @@ public class StepWriters {
 							     WriterFooterComplex listener) {
 		return stepBuilderFactory
 				.get("stepWriteComplex")
+				.<CashierOperator, CashierOperator> chunk(1)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.listener(listener)
+				.build();
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Bean
+	public Step stepWriteMultiFilesComplex(@Qualifier("multiFileCashierReader") MultiResourceItemReader reader,
+								 @Qualifier("processTransactionsCashierOperator") FunctionItemProcessor<CashierOperator, CashierOperator> processor,
+							     @Qualifier("writerMultiFileComplex") MultiResourceItemWriter<CashierOperator> writer,
+							     WriterFooterComplex listener) {
+		return stepBuilderFactory
+				.get("stepWriteMultiFilesComplex")
 				.<CashierOperator, CashierOperator> chunk(1)
 				.reader(reader)
 				.processor(processor)

@@ -9,11 +9,14 @@ import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
 import org.erick.batch.domain.OperationsCashier;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.item.file.FlatFileFooterCallback;
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.item.file.MultiResourceItemWriter;
+import org.springframework.batch.item.file.ResourceSuffixCreator;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
+import org.springframework.batch.item.file.builder.MultiResourceItemWriterBuilder;
 import org.springframework.batch.item.file.transform.LineAggregator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,6 +90,30 @@ public class Writers {
 					line.append("\n	- ID: " + transaction.getId() + " VALUE: " + transaction.getValue());
 				}
 				return line.toString();
+			}
+		};
+	}
+	
+	@StepScope
+	@Bean
+	public MultiResourceItemWriter<CashierOperator> writerMultiFileComplex(
+			@Value("#{jobParameters['multFileOutput']}") Resource output,
+			@Qualifier("writerComplex") FlatFileItemWriter<CashierOperator> writer) {
+		return new MultiResourceItemWriterBuilder<CashierOperator>()
+				.name("writerMultiFileComplex")
+				.resource(output)
+				.delegate(writer)
+				.resourceSuffixCreator(sufixCreator())
+				.itemCountLimitPerResource(1)
+				.build();
+	}
+
+	private ResourceSuffixCreator sufixCreator() {
+		return new ResourceSuffixCreator() {
+			
+			@Override
+			public String getSuffix(int index) {
+				return index + ".txt";
 			}
 		};
 	}
