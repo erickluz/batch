@@ -23,6 +23,7 @@ public class JobWriters {
 				.get("jobOperationsCashiersFile")
 				.repository(jobRepository)
 				.start(step)
+				.incrementer(new RunIdIncrementer())
 				.build();
 	}
 	
@@ -30,6 +31,16 @@ public class JobWriters {
 	public Job jobWriteDelimited(JobRepository jobRepository, @Qualifier("stepWriteDelimited") Step step) {
 		return jobBuilderFactory
 				.get("jobWriteDelimited")
+				.repository(jobRepository)
+				.start(step)
+				.incrementer(new RunIdIncrementer())
+				.build();
+	}
+	
+	@Bean
+	public Job jobWriterComplex(JobRepository jobRepository, @Qualifier("stepWriteComplex") Step step) {
+		return jobBuilderFactory
+				.get("jobWriterComplex")
 				.repository(jobRepository)
 				.start(step)
 				.incrementer(new RunIdIncrementer())
