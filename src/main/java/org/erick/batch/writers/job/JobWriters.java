@@ -57,4 +57,13 @@ public class JobWriters {
 				.build();
 	}
 	
+	@Bean
+	public Job jobWriterJDBC(JobRepository jobRepository, @Qualifier("stepWriteJDBC") Step step) {
+		return jobBuilderFactory
+				.get("jobWriterJDBC")
+				.repository(jobRepository)
+				.start(step)
+				.incrementer(new RunIdIncrementer())
+				.build();
+	}
 }

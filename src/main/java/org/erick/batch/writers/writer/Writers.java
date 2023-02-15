@@ -2,13 +2,20 @@ package org.erick.batch.writers.writer;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.sql.DataSource;
 
 import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
 import org.erick.batch.domain.OperationsCashier;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.item.database.ItemPreparedStatementSetter;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
+import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.MultiResourceItemWriter;
@@ -77,7 +84,7 @@ public class Writers {
 			}
 		};
 	}
-
+	
 	private LineAggregator<CashierOperator> lineAgregator() {
 		return new LineAggregator<CashierOperator>() {
 			
@@ -116,6 +123,27 @@ public class Writers {
 				return index + ".txt";
 			}
 		};
+	}
+	
+	
+	@Bean
+	public JdbcBatchItemWriter<OperationsCashier> writerTransactionsJDBC(
+			@Qualifier("appDataSource") DataSource dataSource) {
+		return new JdbcBatchItemWriterBuilder<OperationsCashier>()
+				.dataSource(dataSource)
+				.sql("INSERT INTO transactions (value) VALUES (?)")
+				.itemPreparedStatementSetter(itemPreparedStatementSetter())
+				.build();
+	}
+
+	private ItemPreparedStatementSetter<OperationsCashier> itemPreparedStatementSetter() {
+		return new ItemPreparedStatementSetter<OperationsCashier>() {
+			
+			@Override
+			public void setValues(OperationsCashier operationsCashier, PreparedStatement ps) throws SQLException {
+				ps.setDouble(1, operationsCashier.getValue());
+			}
+		}; 
 	}
 	
 }

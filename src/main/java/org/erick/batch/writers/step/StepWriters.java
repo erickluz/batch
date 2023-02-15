@@ -1,10 +1,14 @@
 package org.erick.batch.writers.step;
 
+import java.util.List;
+
 import org.erick.batch.domain.CashierOperator;
 import org.erick.batch.domain.Client;
+import org.erick.batch.domain.OperationsCashier;
 import org.erick.batch.writers.writer.WriterFooterComplex;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.MultiResourceItemReader;
@@ -65,9 +69,9 @@ public class StepWriters {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Bean
 	public Step stepWriteMultiFilesComplex(@Qualifier("multiFileCashierReader") MultiResourceItemReader reader,
-								 @Qualifier("processTransactionsCashierOperator") FunctionItemProcessor<CashierOperator, CashierOperator> processor,
-							     @Qualifier("writerMultiFileComplex") MultiResourceItemWriter<CashierOperator> writer,
-							     WriterFooterComplex listener) {
+										   @Qualifier("processTransactionsCashierOperator") FunctionItemProcessor<CashierOperator, CashierOperator> processor,
+										   @Qualifier("writerMultiFileComplex") MultiResourceItemWriter<CashierOperator> writer,
+										   WriterFooterComplex listener) {
 		return stepBuilderFactory
 				.get("stepWriteMultiFilesComplex")
 				.<CashierOperator, CashierOperator> chunk(1)
@@ -78,4 +82,17 @@ public class StepWriters {
 				.build();
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Bean
+	public Step stepWriteJDBC(@Qualifier("multiFileCashierReader") MultiResourceItemReader reader,
+							  @Qualifier("processTransactionsJDBC") FunctionItemProcessor<CashierOperator, OperationsCashier> processor,
+							  @Qualifier("writerTransactionsJDBC") JdbcBatchItemWriter<OperationsCashier> writer) {
+		return stepBuilderFactory
+				.get("stepWriteJDBC")
+				.<CashierOperator, List<OperationsCashier>> chunk(1)
+				.reader(reader)
+				.processor(processor)
+				.writer(writer)
+				.build();
+	}
 }
